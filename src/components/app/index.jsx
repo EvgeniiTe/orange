@@ -11,8 +11,8 @@ export const App = () => (
     <Header />
     <Switch>
       <Route path="/" component={HomePage} exact />
-      <Route path="/:id" component={AccPage} />
-      <Route path="/:id/repo" component={RepoPage} />
+      <Route path="/:user" component={AccPage} exact />
+      <Route path="/:user/:repo" component={RepoPage} />
     </Switch>
     <Footer />
   </>

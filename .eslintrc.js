@@ -40,5 +40,7 @@ module.exports = {
       'error',
       { multiline: true }
     ],
+    camelcase: ['error', { ignoreDestructuring: true }],
+    'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
   },
 };

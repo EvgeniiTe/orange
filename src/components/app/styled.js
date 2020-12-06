@@ -1,6 +1,6 @@
 import styled, { createGlobalStyle } from 'styled-components';
 
-export const fontMainColor = '#fff';
+export const fontMainColor = '#1d6157';
 export const fontLightColor = '#fff';
 export const backgroundMainColor = '#f8f9fa';
 export const backgroundStressColor = '#4da699';
@@ -25,7 +25,11 @@ main {
 
 a {
     text-decoration: none;
-    color: ${fontLightColor};
+    color: ${fontMainColor};
+    :hover {
+        text-decoration: none;
+        color: red;
+    }
 }
 `;
 
@@ -33,7 +37,7 @@ export const HeaderFooterContainer = styled.div`
   max-width: 1920px;
   display: flex;
   justify-content: space-between;
-  padding: 0 1rem;
+  padding: 5rem 1rem;
   color: ${fontLightColor};
   margin: auto;
 `;
