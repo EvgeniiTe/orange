@@ -1,18 +1,16 @@
+const initialState = {
+  reposList: [],
+  loading: false,
+  error: null,
+};
+
 export const updateAcc = (state, action) => {
   if (state === undefined) {
-    return {
-      reposList: [],
-      loading: false,
-      error: null,
-    };
+    return initialState;
   }
 
   if (state.accSelected === undefined) {
-    return {
-      reposList: [],
-      loading: false,
-      error: null,
-    };
+    return initialState;
   }
 
   switch (action.type) {
@@ -36,6 +34,6 @@ export const updateAcc = (state, action) => {
       };
 
     default:
-      return state.accSelected;
+      return initialState;
   }
 };

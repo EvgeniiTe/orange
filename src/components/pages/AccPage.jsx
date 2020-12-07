@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-// import Button from 'react-bootstrap/Button';
+import { Col, Container } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -10,6 +9,7 @@ import { withApiRequest } from '../../helpers/hoc-helpers/withApiRequest';
 import { Loader } from '../loader';
 import { ErrorIndicator } from '../error-indicator';
 import { getAccPublicRepos } from '../../actions';
+import { ControlPanel } from '../control-panel';
 import * as S from './styled';
 
 const AccPageRender = ({
@@ -23,10 +23,10 @@ const AccPageRender = ({
     const items = data.map(({ id, name, description, html_url: url, pushed_at: pushedAt }) => {
       return (
         <S.StyledRow key={id} onClick={() => selectRepo(name)}>
-          <Col xs={2}>{name}</Col>
-          <Col xs={2}>{description}</Col>
-          <Col><a href={url}>{url}</a></Col>
-          <Col>{pushedAt}</Col>
+          <Col xs={12} md={3}>{name}</Col>
+          <Col xs={12} md={3}>{description}</Col>
+          <Col xs={12} md={3}><a href={url}>Link to repo on Github</a></Col>
+          <Col xs={12} md={3}>{pushedAt}</Col>
         </S.StyledRow>
       );
     });
@@ -41,18 +41,21 @@ const AccPageRender = ({
   return (
     <main>
       <S.MainContainer>
-        <Row style={{ paddingBottom: '2rem', border: '3px solid green', marginBottom: '1rem' }}>
-          <Col>{login}</Col>
-          <Col><a href={ownerUrl}>{ownerUrl}</a></Col>
-          <Col><img src={avatarUrl} alt={avatarUrl} width="100rem" /></Col>
-        </Row>
-        <Row style={{ paddingBottom: '2rem' }}>
-          <Col xs={2}>НАЗВАНИЕ</Col>
-          <Col xs={2}>ОПИСАНИЕ</Col>
-          <Col>ССЫЛКА</Col>
-          <Col>ДАТА ИЗМЕНЕНИЯ</Col>
-        </Row>
-        <ReposList data={list} selectRepo={handleSelectItem} />
+        <Container>
+          <S.StyledHead xs={1} md={3}>
+            <Col>{login}</Col>
+            <Col><a href={ownerUrl}>{ownerUrl}</a></Col>
+            <Col><Image src={avatarUrl} roundedCircle style={{ width: '5rem' }} /></Col>
+          </S.StyledHead>
+          <S.StyledHeadRow>
+            <Col>НАЗВАНИЕ</Col>
+            <Col>ОПИСАНИЕ</Col>
+            <Col>ССЫЛКА</Col>
+            <Col>ДАТА ИЗМЕНЕНИЯ</Col>
+          </S.StyledHeadRow>
+          <ReposList data={list} selectRepo={handleSelectItem} />
+          <ControlPanel onlyHome />
+        </Container>
       </S.MainContainer>
     </main>
   );
@@ -97,7 +100,13 @@ const AccPageContainer = ({
   }
 
   if (login === undefined) {
-    return <ErrorIndicator error="This account has empty list of public repos" />;
+    return (
+      <Container>
+        <ErrorIndicator error="This account has empty list of public repos" />
+        <ControlPanel onlyHome />
+      </Container>
+
+    );
   }
 
   return (
@@ -108,6 +117,7 @@ const AccPageContainer = ({
       ownerUrl={ownerUrl}
       avatarUrl={avatarUrl}
     />
+
   );
 };
 

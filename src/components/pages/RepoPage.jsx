@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
+import Container from 'react-bootstrap/Container';
+import Image from 'react-bootstrap/Image';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -11,6 +13,7 @@ import { Loader } from '../loader';
 import { ErrorIndicator } from '../error-indicator';
 import { getRepoInfoAndReadmeUrl } from '../../actions';
 import * as S from './styled';
+import { ControlPanel } from '../control-panel';
 
 const RepoPageRender = ({
   login,
@@ -23,27 +26,29 @@ const RepoPageRender = ({
   return (
     <main>
       <S.MainContainer>
-        <Row style={{ paddingBottom: '2rem', border: '3px solid green', marginBottom: '1rem' }}>
-          <Col>{login}</Col>
-          <Col><a href={ownerUrl}>{ownerUrl}</a></Col>
-          <Col><img src={avatarUrl} alt={avatarUrl} width="100rem" /></Col>
-        </Row>
-        <Row style={{ paddingBottom: '2rem', border: '3px solid green', marginBottom: '1rem' }}>
-          <Col>{repoName}</Col>
-          <Col>{description}</Col>
-          <Col><a href={urlRepo}>{urlRepo}</a></Col>
-          <Col>{pushedAt}</Col>
-        </Row>
-        <Row>
-          <Card style={{ width: '100%' }}>
-            <Card.Body>
-              <Card.Title>Readme</Card.Title>
-              <Card.Subtitle className="mb-2 text-muted">Repo&#39;s readme text</Card.Subtitle>
-              <Card.Text><Card.Link href={readmeFileUrl}>Readme&#39;s file</Card.Link></Card.Text>
-              <Card.Link href={urlRepo}>Link to repo on Github</Card.Link>
-            </Card.Body>
-          </Card>
-        </Row>
+        <Container>
+          <S.StyledHead xs={1} md={3}>
+            <Col>{login}</Col>
+            <Col><a href={ownerUrl}>Link to acc on Github</a></Col>
+            <Col><Image src={avatarUrl} roundedCircle style={{ width: '5rem' }} /></Col>
+          </S.StyledHead>
+          <S.StyledHead xs={1} md={3}>
+            <Col>{repoName}</Col>
+            <Col>{description}</Col>
+            <Col><a href={urlRepo}>Link to repo on Github</a></Col>
+            <Col>{pushedAt}</Col>
+          </S.StyledHead>
+          <Row>
+            <Card style={{ width: '100%' }}>
+              <Card.Body>
+                <Card.Title>Readme</Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">Repo&#39;s readme text</Card.Subtitle>
+                <Card.Text><Card.Link href={readmeFileUrl}>Readme file</Card.Link></Card.Text>
+                <Card.Link href={urlRepo}>Link to repo on Github</Card.Link>
+              </Card.Body>
+            </Card>
+          </Row>
+        </Container>
       </S.MainContainer>
     </main>
   );
@@ -79,7 +84,12 @@ const RepoPageContainer = ({ history, getRepo, repoInfo, loading, error }) => {
   }
 
   if (error) {
-    return <ErrorIndicator error={error} />;
+    return (
+      <Container>
+        <ErrorIndicator error={error} />
+        <ControlPanel onlyHome />
+      </Container>
+    );
   }
 
   if (login === undefined) {
@@ -87,13 +97,16 @@ const RepoPageContainer = ({ history, getRepo, repoInfo, loading, error }) => {
   }
 
   return (
-    <RepoPageRender
-      login={login}
-      ownerUrl={ownerUrl}
-      avatarUrl={avatarUrl}
-      readmeFileUrl={readmeFileUrl}
-      repoInfo={repoInfo.repoInfo}
-    />
+    <>
+      <RepoPageRender
+        login={login}
+        ownerUrl={ownerUrl}
+        avatarUrl={avatarUrl}
+        readmeFileUrl={readmeFileUrl}
+        repoInfo={repoInfo.repoInfo}
+      />
+      <ControlPanel ownerLogin={login} />
+    </>
   );
 };
 

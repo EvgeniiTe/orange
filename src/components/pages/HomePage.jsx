@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import Image from 'react-bootstrap/Image';
+import { Col, Container, Button } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -16,9 +16,10 @@ const HomePageRender = ({ list, handleSelectItem }) => {
     const items = data.map(({ id, login, html_url: url, avatar_url: avatarUrl }) => {
       return (
         <S.StyledRow key={id} onClick={() => selectItem(login)}>
-          <Col xs={2}>{login}</Col>
-          <Col><a href={url}>{url}</a></Col>
-          <Col><img src={avatarUrl} alt={avatarUrl} width="100rem" /></Col>
+          <Col xs={12} md={2}>{login}</Col>
+          <Col xs={12} md={6}><a href={url}>Link to acc on Github</a></Col>
+          <Col xs={12} md={2}><Image src={avatarUrl} roundedCircle style={{ width: '5rem' }} /></Col>
+          <Col xs={12} md={2}><Button variant="primary" onClick={() => selectItem(login)}>MORE INFO</Button></Col>
         </S.StyledRow>
       );
     });
@@ -33,12 +34,14 @@ const HomePageRender = ({ list, handleSelectItem }) => {
   return (
     <main>
       <S.MainContainer>
-        <Row style={{ paddingBottom: '2rem' }}>
-          <Col xs={2}>ЛОГИН</Col>
-          <Col>ССЫЛКА НА АККАУНТ</Col>
-          <Col>АВАТАР</Col>
-        </Row>
-        <AccList data={list} selectItem={handleSelectItem} />
+        <Container>
+          <S.StyledHeadRow>
+            <Col md={2}>ЛОГИН</Col>
+            <Col md={6}>ССЫЛКА НА АККАУНТ</Col>
+            <Col md={2}>АВАТАР</Col>
+          </S.StyledHeadRow>
+          <AccList data={list} selectItem={handleSelectItem} />
+        </Container>
       </S.MainContainer>
     </main>
   );
@@ -46,7 +49,7 @@ const HomePageRender = ({ list, handleSelectItem }) => {
 
 const HomePageContainer = ({ history, getNthRandomAcc, list, loading, error }) => {
   useEffect(() => {
-    getNthRandomAcc(1);
+    getNthRandomAcc(10);
   }, []);
 
   const handleSelectItem = (login) => {

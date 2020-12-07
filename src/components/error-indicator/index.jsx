@@ -1,10 +1,13 @@
 import React from 'react';
-import * as S from './styled';
+import Alert from 'react-bootstrap/Alert';
 
 export const ErrorIndicator = ({ error }) => {
   return (
-    <S.ErrorIndicator>
-      {error.toString()}
-    </S.ErrorIndicator>
+    <Alert variant="danger">
+      <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+      <p>
+        {error.toString()}
+      </p>
+    </Alert>
   );
 };
