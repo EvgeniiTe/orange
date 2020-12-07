@@ -1,41 +1,41 @@
-export const updateAcc = (state, action) => {
+export const updateRepo = (state, action) => {
   if (state === undefined) {
     return {
-      reposList: [],
+      repoInfo: null,
       loading: false,
       error: null,
     };
   }
 
-  if (state.accSelected === undefined) {
+  if (state.repoSelected === undefined) {
     return {
-      reposList: [],
+      repoInfo: null,
       loading: false,
       error: null,
     };
   }
 
   switch (action.type) {
-    case 'FETCH_ACC_REQUEST':
+    case 'FETCH_REPO_REQUEST':
       return {
-        reposList: [],
+        repoInfo: null,
         loading: true,
         error: null,
       };
-    case 'FETCH_ACC_SUCCESS':
+    case 'FETCH_REPO_SUCCESS':
       return {
-        reposList: action.payload,
+        repoInfo: action.payload,
         loading: false,
         error: null,
       };
-    case 'FETCH_ACC_FAILURE':
+    case 'FETCH_REPO_FAILURE':
       return {
-        reposList: [],
+        repoInfo: null,
         loading: false,
         error: action.payload,
       };
 
     default:
-      return state.accSelected;
+      return state.repoSelected;
   }
 };

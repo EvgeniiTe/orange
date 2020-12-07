@@ -32,24 +32,28 @@ export const getNthRandomAcc = async (n) => {
   }
 
   const result = await Promise.all(list);
-  console.log(result);
   return result;
 };
 
 export const getAccRepos = async (username) => {
   const repos = await getResource(`/users${username}/repos`);
-  console.log(repos);
   return repos;
 };
 
-export const getRepoInfo = async (usernameRepo) => {
-  const repoInfo = await getResource(`/repos${usernameRepo}`);
-  console.log(repoInfo);
-  return repoInfo;
-};
+// export const getRepoInfo = async (usernameRepo) => {
+//   const repoInfo = await getResource(`/repos${usernameRepo}`);
+//   return repoInfo;
+// };
 
-export const getRepoReadme = async (usernameRepo) => {
+// export const getRepoReadme = async (usernameRepo) => {
+//   const readme = await getResource(`/repos${usernameRepo}/readme`);
+//   return readme;
+// };
+export const getRepoInfoAndReadme = async (usernameRepo) => {
+  const repoInfo = await getResource(`/repos${usernameRepo}`);
   const readme = await getResource(`/repos${usernameRepo}/readme`);
-  console.log(readme);
-  return readme;
+  return {
+    repoInfo,
+    readme
+  };
 };

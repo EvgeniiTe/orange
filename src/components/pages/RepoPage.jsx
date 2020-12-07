@@ -3,47 +3,33 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Card from 'react-bootstrap/Card';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { compose } from '../../helpers/compose';
+import { withApiRequest } from '../../helpers/hoc-helpers/withApiRequest';
+import { Loader } from '../loader';
+import { ErrorIndicator } from '../error-indicator';
+import { getRepoInfoAndReadmeUrl } from '../../actions';
 import * as S from './styled';
 
-import { getRepoReadme, getRepoInfo } from '../../services/service';
-
-const RepoPageTemplate = ({ history }) => {
-  const [repoInfo, setRepoInfo] = useState({});
-  const [owner, setOwner] = useState({});
-  const [readmeFileUrl, setReadmeFileUrl] = useState({});
-
-  useEffect(async () => {
-    const data = await getRepoInfo(history.location.pathname);
-    console.log(history.location.pathname);
-    setRepoInfo(data);
-    if (data) {
-      const ownerData = data.owner;
-      setOwner(ownerData);
-    }
-    const readme = await getRepoReadme(history.location.pathname);
-    if (readme) {
-      const { download_url: urlForReadme } = readme;
-      setReadmeFileUrl(urlForReadme);
-    }
-  }, []);
-
-  const {
-    login = undefined,
-    html_url: urlOwner = undefined,
-    avatar_url: avatarUrl = undefined
-  } = owner;
-  const { name, description, html_url: urlRepo, pushed_at: pushedAt } = repoInfo;
-
+const RepoPageRender = ({
+  login,
+  ownerUrl,
+  avatarUrl,
+  readmeFileUrl,
+  repoInfo
+}) => {
+  const { name: repoName, description, html_url: urlRepo, pushed_at: pushedAt } = repoInfo;
   return (
     <main>
       <S.MainContainer>
         <Row style={{ paddingBottom: '2rem', border: '3px solid green', marginBottom: '1rem' }}>
           <Col>{login}</Col>
-          <Col><a href={urlOwner}>{urlOwner}</a></Col>
+          <Col><a href={ownerUrl}>{ownerUrl}</a></Col>
           <Col><img src={avatarUrl} alt={avatarUrl} width="100rem" /></Col>
         </Row>
         <Row style={{ paddingBottom: '2rem', border: '3px solid green', marginBottom: '1rem' }}>
-          <Col>{name}</Col>
+          <Col>{repoName}</Col>
           <Col>{description}</Col>
           <Col><a href={urlRepo}>{urlRepo}</a></Col>
           <Col>{pushedAt}</Col>
@@ -63,4 +49,67 @@ const RepoPageTemplate = ({ history }) => {
   );
 };
 
-export const RepoPage = withRouter(RepoPageTemplate);
+const RepoPageContainer = ({ history, getRepo, repoInfo, loading, error }) => {
+  const [owner, setOwner] = useState({});
+  const [readmeFileUrl, setReadmeFileUrl] = useState({});
+
+  useEffect(() => {
+    getRepo(history.location.pathname);
+  }, []);
+
+  useEffect(() => {
+    if (repoInfo) {
+      const ownerData = repoInfo.repoInfo.owner;
+      setOwner(ownerData);
+    }
+    if (repoInfo) {
+      const { download_url: urlForReadme } = repoInfo.readme;
+      setReadmeFileUrl(urlForReadme);
+    }
+  }, [repoInfo]);
+
+  const {
+    login = undefined,
+    html_url: ownerUrl = undefined,
+    avatar_url: avatarUrl = undefined
+  } = owner;
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (error) {
+    return <ErrorIndicator error={error} />;
+  }
+
+  if (login === undefined) {
+    return <ErrorIndicator error="This repo doesn't exist" />;
+  }
+
+  return (
+    <RepoPageRender
+      login={login}
+      ownerUrl={ownerUrl}
+      avatarUrl={avatarUrl}
+      readmeFileUrl={readmeFileUrl}
+      repoInfo={repoInfo.repoInfo}
+    />
+  );
+};
+
+const mapStateToProps = ({ repoSelected: { repoInfo, loading, error } }) => {
+  return { repoInfo, loading, error };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  const { serviceFunctions } = ownProps;
+  return bindActionCreators(
+    { getRepo: getRepoInfoAndReadmeUrl(serviceFunctions) },
+    dispatch
+  );
+};
+
+export const RepoPage = compose(
+  withApiRequest(),
+  connect(mapStateToProps, mapDispatchToProps)
+)(withRouter(RepoPageContainer));

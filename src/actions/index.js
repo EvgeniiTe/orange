@@ -17,6 +17,16 @@ export const accListError = (error) => {
   };
 };
 
+export const getRandomAccs = (serviceFunctions) => (quantity) => async (dispatch) => {
+  dispatch(accListRequested());
+  try {
+    const data = await serviceFunctions.getNthRandomAcc(quantity);
+    dispatch(accListLoaded(data));
+  } catch (error) {
+    dispatch(accListError(error));
+  }
+};
+
 // accSelected
 export const accRequested = () => {
   return { type: 'FETCH_ACC_REQUEST' };
@@ -34,4 +44,43 @@ export const accError = (error) => {
     type: 'FETCH_ACC_FAILURE',
     payload: error,
   };
+};
+
+export const getAccPublicRepos = (serviceFunctions) => (username) => async (dispatch) => {
+  dispatch(accRequested());
+  try {
+    const data = await serviceFunctions.getAccRepos(username);
+    dispatch(accLoaded(data));
+  } catch (error) {
+    dispatch(accError(error));
+  }
+};
+
+// repoSelected
+export const repoRequested = () => {
+  return { type: 'FETCH_REPO_REQUEST' };
+};
+
+export const repoLoaded = (repo) => {
+  return {
+    type: 'FETCH_REPO_SUCCESS',
+    payload: repo,
+  };
+};
+
+export const repoError = (error) => {
+  return {
+    type: 'FETCH_REPO_FAILURE',
+    payload: error,
+  };
+};
+
+export const getRepoInfoAndReadmeUrl = (serviceFunctions) => (usernameRepo) => async (dispatch) => {
+  dispatch(repoRequested());
+  try {
+    const data = await serviceFunctions.getRepoInfoAndReadme(usernameRepo);
+    dispatch(repoLoaded(data));
+  } catch (error) {
+    dispatch(repoError(error));
+  }
 };

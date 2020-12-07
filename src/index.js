@@ -5,14 +5,28 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { App } from './components/app';
 import { ErrorBoundary } from './components/error-boundary';
 import { store } from './store';
+import { ServiceProvider } from './helpers/service-context';
+import {
+  getNthRandomAcc,
+  getAccRepos,
+  getRepoInfoAndReadme
+} from './services/service';
+
+const serviceFunctions = {
+  getNthRandomAcc,
+  getAccRepos,
+  getRepoInfoAndReadme
+};
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ErrorBoundary>
-        <Router>
-          <App />
-        </Router>
+        <ServiceProvider value={serviceFunctions}>
+          <Router>
+            <App />
+          </Router>
+        </ServiceProvider>
       </ErrorBoundary>
     </Provider>
   </React.StrictMode>,
