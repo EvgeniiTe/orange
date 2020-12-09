@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const apiBase = 'https://api.github.com';
+const authorId = 60003920;
 
 const getResource = async (url) => {
   const res = await axios.get(`${apiBase}${url}`);
@@ -20,8 +21,13 @@ const randId = (min, max) => {
 };
 
 const getRandomAcc = async () => {
-  const res = await getResource(`/users?since=${randId(1, 60003920)}`);
-  return res[0];
+  let res;
+  try {
+    res = await getResource(`/user/${randId(1, authorId)}`);
+  } catch {
+    res = await getResource(`/user/${authorId}`);
+  }
+  return res;
 };
 
 export const getNthRandomAcc = async (n) => {
@@ -40,15 +46,6 @@ export const getAccRepos = async (username) => {
   return repos;
 };
 
-// export const getRepoInfo = async (usernameRepo) => {
-//   const repoInfo = await getResource(`/repos${usernameRepo}`);
-//   return repoInfo;
-// };
-
-// export const getRepoReadme = async (usernameRepo) => {
-//   const readme = await getResource(`/repos${usernameRepo}/readme`);
-//   return readme;
-// };
 export const getRepoInfoAndReadme = async (usernameRepo) => {
   const repoInfo = await getResource(`/repos${usernameRepo}`);
   const readme = await getResource(`/repos${usernameRepo}/readme`);

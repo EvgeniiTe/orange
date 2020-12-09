@@ -6,14 +6,17 @@ import { HomePage, AccPage, RepoPage } from '../pages';
 import * as S from './styled';
 
 export const App = () => (
-  <>
+
+  <S.App fluid>
     <S.GlobalStyle />
     <Header />
-    <Switch>
-      <Route path="/" component={HomePage} exact />
-      <Route path="/:user" component={AccPage} exact />
-      <Route path="/:user/:repo" component={RepoPage} />
-    </Switch>
+    <S.ContentContainer fluid>
+      <Switch>
+        <Route path="/" component={HomePage} exact />
+        <Route path="/:user" component={AccPage} exact />
+        <Route path="/:user/:repo" component={RepoPage} />
+      </Switch>
+    </S.ContentContainer>
     <Footer />
-  </>
+  </S.App>
 );

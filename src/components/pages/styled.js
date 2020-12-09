@@ -1,15 +1,15 @@
 import styled from 'styled-components';
-import { Container, Row } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 
 export const MainContainer = styled(Container)`
   max-width: 1366px;
-  margin: 0 auto;
   padding: 1rem 0;
 `;
 
 export const StyledRow = styled(Row)`
   border-bottom: 1px solid grey;
   padding: 1rem 0;
+  min-height: 7rem;
 
   :hover {
     transform: scale(1.03);
@@ -29,8 +29,12 @@ export const StyledHeadRow = styled(Row)`
 
 `;
 
-export const StyledHead = styled(Row)`
-  padding-bottom: 2rem;
+export const StyledCol = styled(Col)`
+  margin: auto;
+`;
+
+export const ParentInfoRow = styled(Row)`
+  padding: 1rem 0;
   border: 3px solid green;
   margin-bottom: 1rem
 
