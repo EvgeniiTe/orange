@@ -81,6 +81,7 @@ export const getRepoInfoAndReadmeUrl = (serviceFunctions) => (usernameRepo) => a
     const data = await serviceFunctions.getRepoInfoAndReadme(usernameRepo);
     dispatch(repoLoaded(data));
   } catch (error) {
-    dispatch(repoError(error));
+    const errMsg = 'It might be something wrong with this repo, try another one';
+    dispatch(repoError(errMsg));
   }
 };

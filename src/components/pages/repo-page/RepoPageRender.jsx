@@ -23,7 +23,7 @@ export const RepoPageRender = ({
         pushedAt={pushedAt}
       />
       <Row>
-        <Card style={{ width: '100%' }}>
+        <Card style={{ width: '100%', textAlign: 'center' }}>
           <Card.Body>
             <Card.Title>Readme</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">Repo&#39;s readme text</Card.Subtitle>

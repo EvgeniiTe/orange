@@ -4,7 +4,7 @@ import * as S from './styled';
 export const Footer = () => (
   <S.Footer>
     <S.FooterContainer>
-      FOOTER
+      FOOTER. it will be soon
     </S.FooterContainer>
   </S.Footer>
 );

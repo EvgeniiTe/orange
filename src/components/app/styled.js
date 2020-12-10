@@ -1,11 +1,12 @@
 import styled, { createGlobalStyle } from 'styled-components';
 import { Container } from 'react-bootstrap';
 
-const orangeColor = '#ff7900';
+export const orangeColor = '#ff7900';
+export const orangeBcgColor = 'rgba(221,221,221,.9)';
 
 export const fontMainColor = '#1d6157';
 export const fontLightColor = '#fff';
-export const backgroundMainColor = '#f8f9fa';
+export const backgroundMainColor = orangeBcgColor;
 export const backgroundStressColor = orangeColor;
 export const boxShadowMain = '0 1px 10px #909090';
 export const boxMainProps = '1px solid #d7e6e6';
@@ -53,7 +54,7 @@ export const HeaderFooterContainer = styled.div`
   max-width: 1920px;
   display: flex;
   justify-content: space-between;
-  padding: 5rem 1rem;
+  padding: 0 1rem;
   color: ${fontLightColor};
   margin: auto;
 `;

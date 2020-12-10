@@ -15,7 +15,7 @@ export const AccPageRender = ({
     const items = data.map(({ id, name, description, html_url: url, pushed_at: pushedAt }) => {
       return (
         <S.StyledRow key={id} onClick={() => selectRepo(name)}>
-          <S.StyledCol xs={12} md={3}>{name}</S.StyledCol>
+          <S.StyledColStressFont xs={12} md={3}>{name}</S.StyledColStressFont>
           <S.StyledCol xs={12} md={3}>{description}</S.StyledCol>
           <S.StyledCol xs={12} md={3}><a href={url}>Link to repo on Github</a></S.StyledCol>
           <S.StyledCol xs={12} md={3}>{pushedAt}</S.StyledCol>

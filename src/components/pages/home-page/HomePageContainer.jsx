@@ -6,7 +6,7 @@ import { HomePageRender } from './HomePageRender';
 
 export const HomePageContainer = ({ history, getNthRandomAcc, list, loading, error }) => {
   useEffect(() => {
-    getNthRandomAcc(1);
+    getNthRandomAcc(2);
   }, []);
 
   const handleSelectItem = (login) => {
