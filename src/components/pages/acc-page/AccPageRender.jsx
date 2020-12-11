@@ -3,6 +3,7 @@ import Col from 'react-bootstrap/Col';
 import { ControlPanel } from '../../control-panel';
 import * as S from '../styled';
 import { AccInfoBlock } from '../../acc-info-block';
+import { PushedAt } from './pushed-at';
 
 export const AccPageRender = ({
   list,
@@ -18,7 +19,7 @@ export const AccPageRender = ({
           <S.StyledColStressFont xs={12} md={3}>{name}</S.StyledColStressFont>
           <S.StyledCol xs={12} md={3}>{description}</S.StyledCol>
           <S.StyledCol xs={12} md={3}><a href={url}>Link to repo on Github</a></S.StyledCol>
-          <S.StyledCol xs={12} md={3}>{pushedAt}</S.StyledCol>
+          <S.StyledCol xs={12} md={3}><PushedAt pushedAt={pushedAt} /></S.StyledCol>
         </S.StyledRow>
       );
     });

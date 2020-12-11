@@ -4,7 +4,12 @@ import * as S from './styled';
 export const Footer = () => (
   <S.Footer>
     <S.FooterContainer>
-      FOOTER. it will be soon
+      <S.CompanyNameFooter>
+        AwesomeCompanyName
+      </S.CompanyNameFooter>
+      <S.Copyright>
+        <p>Здесь мог бы быть Copyright</p>
+      </S.Copyright>
     </S.FooterContainer>
   </S.Footer>
 );

@@ -8,15 +8,17 @@ export const Header = () => (
     <S.Wellcome>HI! Glad to see YOU!</S.Wellcome>
     <S.Header>
       <S.HeaderContainer>
-        <S.CompanyName>
-          AwesomeCompanyName
-        </S.CompanyName>
-        <S.CompanyMotto>
-          &#34;AwesomeCompanyMoto&#34;
-        </S.CompanyMotto>
-        <S.CompanyLogo>
-          <Image src="./@.svg" style={{ width: '8rem' }} />
-        </S.CompanyLogo>
+        <S.HeaderRow xs={1} md={3}>
+          <S.CompanyName>
+            AwesomeCompanyName
+          </S.CompanyName>
+          <S.CompanyMotto>
+            &#34;AwesomeCompanyMoto&#34;
+          </S.CompanyMotto>
+          <S.CompanyLogo>
+            <Image src="./@.svg" style={{ width: '8rem' }} />
+          </S.CompanyLogo>
+        </S.HeaderRow>
       </S.HeaderContainer>
     </S.Header>
   </>

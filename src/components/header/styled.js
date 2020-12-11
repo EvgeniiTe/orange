@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import { HeaderFooterContainer, backgroundStressColor } from '../app/styled';
 
 export const Header = styled.header`
@@ -34,24 +36,43 @@ font-weight: bold;
 font-size: 2rem;
 top: 1rem;
 left: 1rem;
-// transform: translate(300%, 100%);
+
+
+/* sm-размер (<=768px) */
+@media (max-width: 767px) { 
+  font-size: 1rem;
+}
 `;
 
 export const HeaderContainer = styled(HeaderFooterContainer)`
-  min-height: 13rem;
-  padding-bottom: 3rem;
+
+/* sm-размер (<=768px) */
+@media (max-width: 767px) { 
+  padding-top: ${decorBorderSize}px;
+}
+  
 `;
 
-export const CompanyName = styled.div`
+export const HeaderRow = styled(Row)`
+  min-height: 13rem;
+  padding-bottom: 3rem;
+  width: 100%;
+  margin: auto;
+`;
+
+export const CompanyName = styled(Col)`
   align-self: flex-end;
   font-weight: bold;
   font-size: 1.5rem;
+  text-align: center;
 `;
 
-export const CompanyMotto = styled.div`
+export const CompanyMotto = styled(Col)`
 align-self: flex-end; 
+text-align: center;
 `;
 
-export const CompanyLogo = styled.div`
+export const CompanyLogo = styled(Col)`
 align-self: center;
+text-align: center;
 `;
