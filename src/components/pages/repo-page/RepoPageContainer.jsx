@@ -6,7 +6,13 @@ import { ControlPanel } from '../../control-panel';
 
 import { RepoPageRender } from './RepoPageRender';
 
-export const RepoPageContainer = ({ history, getRepo, repoInfo, loading, error }) => {
+export const RepoPageContainer = ({
+  history,
+  makeAction: getRepo,
+  data: repoInfo,
+  loading,
+  error
+}) => {
   const [owner, setOwner] = useState({});
   const [readmeFileUrl, setReadmeFileUrl] = useState({});
 

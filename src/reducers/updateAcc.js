@@ -1,5 +1,5 @@
 const initialState = {
-  reposList: [],
+  data: [],
   loading: false,
   error: null,
 };
@@ -16,19 +16,19 @@ export const updateAcc = (state, action) => {
   switch (action.type) {
     case 'FETCH_ACC_REQUEST':
       return {
-        reposList: [],
+        data: [],
         loading: true,
         error: null,
       };
     case 'FETCH_ACC_SUCCESS':
       return {
-        reposList: action.payload,
+        data: action.payload,
         loading: false,
         error: null,
       };
     case 'FETCH_ACC_FAILURE':
       return {
-        reposList: [],
+        data: [],
         loading: false,
         error: action.payload,
       };

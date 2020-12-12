@@ -1,7 +1,7 @@
 export const updateRepo = (state, action) => {
   if (state === undefined) {
     return {
-      repoInfo: null,
+      data: null,
       loading: false,
       error: null,
     };
@@ -9,7 +9,7 @@ export const updateRepo = (state, action) => {
 
   if (state.repoSelected === undefined) {
     return {
-      repoInfo: null,
+      data: null,
       loading: false,
       error: null,
     };
@@ -18,19 +18,19 @@ export const updateRepo = (state, action) => {
   switch (action.type) {
     case 'FETCH_REPO_REQUEST':
       return {
-        repoInfo: null,
+        data: null,
         loading: true,
         error: null,
       };
     case 'FETCH_REPO_SUCCESS':
       return {
-        repoInfo: action.payload,
+        data: action.payload,
         loading: false,
         error: null,
       };
     case 'FETCH_REPO_FAILURE':
       return {
-        repoInfo: null,
+        data: null,
         loading: false,
         error: action.payload,
       };

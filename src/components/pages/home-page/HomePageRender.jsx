@@ -7,7 +7,7 @@ export const HomePageRender = ({ list, handleSelectItem }) => {
   const AccList = ({ data = [], selectItem }) => {
     const items = data.map(({ id, login, html_url: url, avatar_url: avatarUrl }) => {
       return (
-        <S.StyledRow key={id} onClick={() => selectItem(login)}>
+        <S.StyledRow key={id}>
           <S.StyledColStressFont xs={12} md={2}>{login}</S.StyledColStressFont>
           <S.StyledCol xs={12} md={6}><a href={url}>Link to acc on Github</a></S.StyledCol>
           <S.StyledCol xs={12} md={2} style={{ minHeight: '5rem' }}><Image src={avatarUrl} roundedCircle style={{ width: '5rem' }} /></S.StyledCol>

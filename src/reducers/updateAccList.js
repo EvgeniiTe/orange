@@ -1,7 +1,7 @@
 export const updateAccList = (state, action) => {
   if (state === undefined) {
     return {
-      list: [],
+      data: [],
       loading: true,
       error: null,
     };
@@ -10,19 +10,19 @@ export const updateAccList = (state, action) => {
   switch (action.type) {
     case 'FETCH_LIST_REQUEST':
       return {
-        list: [],
+        data: [],
         loading: true,
         error: null,
       };
     case 'FETCH_LIST_SUCCESS':
       return {
-        list: action.payload,
+        data: action.payload,
         loading: false,
         error: null,
       };
     case 'FETCH_LIST_FAILURE':
       return {
-        list: [],
+        data: [],
         loading: false,
         error: action.payload,
       };

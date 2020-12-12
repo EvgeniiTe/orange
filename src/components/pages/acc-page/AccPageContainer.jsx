@@ -8,8 +8,8 @@ import { AccPageRender } from './AccPageRender';
 
 export const AccPageContainer = ({
   history,
-  getAccRepos,
-  reposList,
+  makeAction: getAccRepos,
+  data: reposList,
   loading,
   error
 }) => {
