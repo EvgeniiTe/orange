@@ -24,10 +24,14 @@ export const RepoPageContainer = ({
     if (repoInfo) {
       const ownerData = repoInfo.repoInfo.owner;
       setOwner(ownerData);
-    }
-    if (repoInfo) {
       const { download_url: urlForReadme } = repoInfo.readme;
       setReadmeFileUrl(urlForReadme);
+    } else {
+      const urlStr = history.location.pathname;
+      const regex = /\w+/i;
+      const user = urlStr.match(regex) || [];
+      const ownerLogin = { login: user[0] };
+      setOwner(ownerLogin);
     }
   }, [repoInfo]);
 
@@ -45,7 +49,7 @@ export const RepoPageContainer = ({
     return (
       <Container>
         <ErrorIndicator error={error} />
-        <ControlPanel onlyHome />
+        <ControlPanel ownerLogin={login} />
       </Container>
     );
   }

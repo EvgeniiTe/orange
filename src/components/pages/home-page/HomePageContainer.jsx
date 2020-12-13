@@ -1,21 +1,7 @@
 import React, { useEffect } from 'react';
-// import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { Loader } from '../../loader';
 import { ErrorIndicator } from '../../error-indicator';
-// import { getRandomAccs } from '../../../actions';
 import { HomePageRender } from './HomePageRender';
-
-// const useCustomStoreWorker = (service) => {
-//   const accList = useSelector((state) => state.accList, shallowEqual);
-//   const { list, loading, error } = accList;
-//   const dispatch = useDispatch();
-
-//   useEffect(() => {
-//     dispatch(getRandomAccs(service)(2));
-//   }, []);
-
-//   return ({ list, loading, error });
-// };
 
 export const HomePageContainer = ({
   history,
@@ -25,7 +11,7 @@ export const HomePageContainer = ({
   error
 }) => {
   useEffect(() => {
-    getRandomAccs(2);
+    getRandomAccs(3);
   }, []);
 
   const handleSelectItem = (login) => {
